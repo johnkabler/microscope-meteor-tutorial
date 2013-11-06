@@ -1,5 +1,13 @@
 Meteor.Router.add({
-	'/' : 'postsList'
+	'/' : 'postsList',
+
+	'/posts/:_id': {
+		to: 'postPage', 
+		and: function(id) { Session.set('currentPostId', id); } 
+		//In Meteor, the Session is the global store of state in the browser.
+		//The Session variable lives on the client and keeps track of 
+		//where the user is.  Even maintains state during hot code reloads.  
+	}
 });
 //By default the name of the route here is "postsList"
 //This allows us to start using convenience functions from the Router package
