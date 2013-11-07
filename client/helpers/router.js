@@ -7,7 +7,9 @@ Meteor.Router.add({
 		//In Meteor, the Session is the global store of state in the browser.
 		//The Session variable lives on the client and keeps track of 
 		//where the user is.  Even maintains state during hot code reloads.  
-	}
+	},
+
+	'/submit': 'postSubmit'
 });
 //By default the name of the route here is "postsList"
 //This allows us to start using convenience functions from the Router package
