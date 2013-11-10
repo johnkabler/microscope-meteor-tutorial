@@ -2,13 +2,37 @@
 //This is because it will be available to all files, while var would limit its scope
 Posts = new Meteor.Collection('posts');
 
-//This is a temporary method for allowing inserts.
-//We will refine this to something better later.  
-//For now this will work
+Meteor.methods({
+	post: function(postAttributes) {
+		var user = Meteor.user(),
+		postWithSameLink = Posts.findOne({url: postAttributes.url});
 
-Posts.allow({
-	insert: function(userId, doc) {
-		//only allow posting if you are logged in;
-		return !! userId;
+		// ensure the user is logged in
+
+		if (!user)
+			throw new Meteor.Error(401, "You need to login to post new stories");
+
+		// Make sure the post has a title.  it can't be blank
+		if (!postAttributes.title)
+			throw new Meteor.Error(422, 'Please fill in a headline');
+
+		// Make sure this isn't a duplicate post or repost
+		if (postAttributes.url && postWithSameLink) {
+			throw new Meteor.Error(302, 
+				'This link has already been posted', 
+				postWithSameLink._id);
+		}
+
+		// pick out the whitelisted keys
+		// This keeps a nefarious client from monkeying around with our db
+		var post = _.extend(_.pick(postAttributes, 'url', 'title', 'message'), {
+			userId: user._id,
+			author: user.username,
+			submitted: new Date().getTime()
+		});
+
+		var postId = Posts.insert(post);
+
+		return postId;
 	}
 });

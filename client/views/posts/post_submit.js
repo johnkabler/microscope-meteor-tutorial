@@ -8,7 +8,15 @@ Template.postSubmit.events({
 			message: $(event.target).find('[name=message]').val()
 		}
 
-		post._id = Posts.insert(post); //the insert() function returns the generated id
-		Meteor.Router.to('postPage', post);
+		Meteor.call('post', post, function(error, id) { //The first argument to 
+			//Meteor.call is the name of the custom Method we are making in
+			// the posts.js file
+			if (error) 
+				return alert(error.reason);
+
+			Meteor.Router.to('postPage', id);
+
+		});
+		
 	}
 });
