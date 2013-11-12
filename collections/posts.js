@@ -2,7 +2,9 @@
 //This is because it will be available to all files, while var would limit its scope
 Posts = new Meteor.Collection('posts');
 
-Posts.allow({
+Posts.allow({ 
+	//we can define multiple statements for each operation in an allow statement
+	//only one of them needs to return true for the operation to go through.  
 	update: ownsDocument,
 	remove: ownsDocument
 });
@@ -10,6 +12,7 @@ Posts.allow({
 Posts.deny({
 	update: function(userId, post, fieldNames) {
 		//only allow editing of the following fields
+		// uses the underscore without function
 		return (_.without(fieldNames, 'url', 'title').length > 0);
 	}
 });
