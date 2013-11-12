@@ -9,6 +9,11 @@ Meteor.Router.add({
 		//where the user is.  Even maintains state during hot code reloads.  
 	},
 
+	'/posts/:_id/edit': {
+		to: 'postEdit',
+		and: function(id) { Session.set('currentPostId', id); }
+	},
+
 	'/submit': 'postSubmit'
 });
 //By default the name of the route here is "postsList"

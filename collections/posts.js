@@ -2,6 +2,11 @@
 //This is because it will be available to all files, while var would limit its scope
 Posts = new Meteor.Collection('posts');
 
+Posts.allow({
+	update: ownsDocument,
+	remove: ownsDocument
+});
+
 Meteor.methods({
 	post: function(postAttributes) {
 		var user = Meteor.user(),
