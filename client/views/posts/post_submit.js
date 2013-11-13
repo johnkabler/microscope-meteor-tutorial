@@ -12,7 +12,7 @@ Template.postSubmit.events({
 			//Meteor.call is the name of the custom Method we are making in
 			// the posts.js file
 			if (error) {
-				throwError(error.reason);
+				Meteor.Errors.throw(error.reason);
 
 				if(error.error === 302)
 					Meteor.Router.to('postPage', error.details)
