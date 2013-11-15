@@ -1,3 +1,5 @@
 Meteor.subscribe('posts');
 //Tell the client to subscribe to the servers published 'posts' Cursor
-Meteor.subscribe('comments');
+Meteor.autorun(function() {
+	Meteor.subscribe('comments', Session.get('currentPostId'));
+});
