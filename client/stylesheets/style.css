@@ -6,7 +6,8 @@ margin-bottom: 10px;
 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
 body {
-background: #eee;
+background-image: url(/over_the_wave.jpg);
+background-size: 100%;
 color: #666666;
 }
 .navbar { margin-bottom: 10px }
@@ -23,6 +24,10 @@ border-radius: 0px 0px 3px 3px;
 	transition: all 300ms 0ms ease-in;
 	position: relative;
 	opacity: 1;
+}
+.post:hover{
+	background-color: #fc6;
+	color:#630;
 }
 .post:before, .post:after {
 content: "";

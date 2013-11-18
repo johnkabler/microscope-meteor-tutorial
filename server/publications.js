@@ -8,3 +8,7 @@ Meteor.publish('comments', function(postId) { //limit
 	//pertain to
 	return Comments.find({ postId: postId });
 });
+
+Meteor.publish('notifications', function() {
+	return Notifications.find({userId: this.userId});
+});
