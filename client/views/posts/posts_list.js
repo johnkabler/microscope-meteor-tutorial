@@ -18,10 +18,19 @@ Template.bestPosts.helpers({
 
 
 Template.postsList.helpers({
-	posts: function() {
-		return Posts.find({}, {sort: this.sort, limit: this.handle.limit()}
-		);
+	postsWithRank: function() {
+		var i = 0, options = {sort: this.sort, limit: this.handle.limit()};
+		return Posts.find({}, options).map(function(post){
+			post._rank = i;
+			i += 1;
+			return post;
+		});
+
 	},
+	// posts: function() {
+	// 	return Posts.find({}, {sort: this.sort, limit: this.handle.limit()}
+	// 	);
+	// },
 
 	postsReady: function() {
 		return this.handle.ready();
