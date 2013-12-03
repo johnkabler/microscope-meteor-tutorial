@@ -2,6 +2,21 @@
 //This is because it will be available to all files, while var would limit its scope
 Posts = new Meteor.Collection('posts');
 
+var request = Meteor.require('request');
+var $ = Meteor.require('cheerio');
+
+//typical usage for cheerio and request involves async callbacks.  Meteor hates that, so I need to find a way to make it synchronous.
+//the meteor-npm library Im using has a wrapper that will allow me to do that.
+
+function getHTML (url, callback) {
+	request(url, callback);
+}
+
+var wrappedGetHTML = Meteor._wrapAsync(getHTML);
+
+console.log(wrappedGetHTML('http://news.ycombinator.com')); //Works!  
+
+
 Posts.allow({ 
 	//we can define multiple statements for each operation in an allow statement
 	//only one of them needs to return true for the operation to go through.  
@@ -53,6 +68,8 @@ Meteor.methods({
 
 		return postId;
 	},
+
+	
 
 	upvote: function(postId) {
 		var user = Meteor.user();
