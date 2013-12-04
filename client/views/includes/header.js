@@ -15,3 +15,10 @@ Template.header.helpers({
 		return active && 'active';
 	}
 });
+
+Template.header.events({
+	'click .hnPull': function() {
+		//event.preventDefault();
+		Meteor.call('getHnArticles');
+	}
+});

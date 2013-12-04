@@ -9,7 +9,13 @@
 				<li class="{{activeRouteClass 'bestPosts'}}">
 					<a href="{{bestPostsPath}}">Best</a>
 				</li>	
-				{{#if currentUser}}<li class="{{activeRouteClass 'postSubmit'}}"><a href="/submit">Submit Post</a></li>{{/if}}
+				{{#if currentUser}}
+				<li class="{{activeRouteClass 'postSubmit'}}"><a href="/submit">Submit Post</a></li>
+				<li class="fetchHnPosts">
+					<a href="{{newPostsPath}}" class="hnPull btn">Scrape Hacker News</a>
+				</li>	
+
+				{{/if}}
 				<li class="dropdown">
 					{{> notifications}}
 				</li>
